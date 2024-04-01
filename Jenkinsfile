@@ -1,21 +1,21 @@
 pipeline {
     agent any
-    
+
     stages {
-        stage('Clone repository') {
+        stage('Checkout') {
             steps {
-                git 'https://github.com/Shrira4a/Cours.git'
+                checkout([$class: 'GitSCM', branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Shrira4a/Cours.git']]])
             }
         }
-        
-        stage('Build and run Python script with Docker') {
+        stage('Build') {
             steps {
-                script {
-                    docker.image('python:latest').inside {
-                        sh 'pip install -r Docker.txt'
-                        sh 'app.py'
-                    }
-                }
+                git branch: 'main', url: 'https://github.com/Shrira4a/Cours.git'
+                sh 'python3 app.py'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'python3 -m pytest'
             }
         }
     }
