@@ -2,16 +2,20 @@ pipeline {
     agent any
     
     stages {
-        stage('Checkout') {
+        stage('Clone repository') {
             steps {
                 git 'https://github.com/Shrira4a/Cours.git'
             }
         }
         
-        stage('Build') {
+        stage('Build and run Python script with Docker') {
             steps {
-                sh 'pip install -r Docker.txt' // Install any required dependencies
-                sh 'python app.py' // Build your Python script
+                script {
+                    docker.image('python:latest').inside {
+                        sh 'pip install -r Docker.txt'
+                        sh 'app.py'
+                    }
+                }
             }
         }
     }
