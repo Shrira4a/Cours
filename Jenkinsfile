@@ -10,12 +10,12 @@ pipeline {
         stage('Build') {
             steps {
                 git branch: 'main', url: 'https://github.com/Shrira4a/Cours.git'
-                python3 app.py
+                sh 'python3 app.py'
             }
         }
         stage('Test') {
             steps {
-                python3 -m pytest
+                sh 'python3 -m pytest'
             }
         }
     }
