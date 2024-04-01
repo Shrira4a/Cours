@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sudo git branch: 'main', url: 'https://github.com/Shrira4a/Cours.git'
+                git branch: 'main', url: 'https://github.com/Shrira4a/Cours.git'
                 sudo sh 'python3 app.py'
             }
         }
