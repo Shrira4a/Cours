@@ -10,6 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 git branch: 'main', url: 'https://github.com/Shrira4a/Cours.git'
+                sh 'pip install -r Dockerfile'
                 sh 'python3 app.py'
             }
         }
