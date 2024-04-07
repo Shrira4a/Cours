@@ -11,7 +11,7 @@ COPY . /app
 RUN pip install flask
 
 # Определение порта, на котором будет работать приложение
-EXPOSE 81
+EXPOSE 80
 
 # Запуск приложения
 CMD ["python", "app.py"]
