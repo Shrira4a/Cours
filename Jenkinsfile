@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define environment variables
-        DOCKERFILE_PATH = "Dockerfile" // Path to Dockerfile in GitHub repository
+        DOCKERFILE_PATH = "main/Dockerfile" // Path to Dockerfile in GitHub repository
         DOCKER_REPO = "NewDockerfile" // Docker repository name
         DOCKER_TAG = "final" // Docker image tag
     }
@@ -12,7 +12,7 @@ pipeline {
         stage('Clone repository') {
             steps {
                 // Clone GitHub repository
-                git 'https://github.com/Shrira4a/Cours.git'
+                git branch: 'main', url: 'https://github.com/Shrira4a/Cours.git'
             }
         }
 
