@@ -12,7 +12,7 @@ pipeline {
         stage('Clone repository') {
             steps {
                 // Clone GitHub repository
-                git 'https://github.com/Shrira4a/Cours/blob/main/Dockerfile'
+                git 'https://github.com/Shrira4a/Cours/main/Dockerfile'
             }
         }
 
