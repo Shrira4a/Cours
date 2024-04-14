@@ -6,6 +6,8 @@ pipeline {
         DOCKERFILE_PATH = "Dockerfile" // Path to Dockerfile in GitHub repository
         DOCKER_REPO = "newdocker" // Docker repository name
         DOCKER_TAG = "final" // Docker image tag
+        DOCKER_REGISTRY='https://index.docker.io/v2/'
+        DOCKER_CREDENTIALS_ID='git_credentials'
     }
 
     stages {
@@ -29,7 +31,7 @@ pipeline {
             steps {
                 // Push Docker image to repository
                 script {
-                    docker.withRegistry('https://index.docker.io/v2/','git_credentials') {
+                    docker.withRegistry(credentialsId: env.DOCKER_CREDENTIALS_ID, url: env.DOCKER_REGISTRY) {
                         docker.image("${DOCKER_REPO}:${DOCKER_TAG}").push()
                     }
                 }
