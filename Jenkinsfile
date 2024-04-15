@@ -29,7 +29,7 @@ pipeline {
             steps {
                 // Push Docker image to repository
                 script {
-                    withRegistry([ credentialsId: "git_credentials", url:"" ]) {
+                    withRegistry('https://index.docker.io/v1/','git_credentials') {
                         docker.image("${DOCKER_REPO}:${DOCKER_TAG}").push()
                     }
                 }
