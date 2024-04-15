@@ -30,7 +30,7 @@ pipeline {
             steps {
                 // Push Docker image to repository
                 script { 
-                    withCredentials([usernamePassword(credentialsId: DOCKER_HUB_USERNAME_CREDENTIAL, passwordVariable: 'DOCKER_HUB_PASSWORD', usernameVariable: 'DOCKER_HUB_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: 'git_credentials', passwordVariable: 'DOCKER_HUB_PASSWORD', usernameVariable: 'DOCKER_HUB_USERNAME')]) {
                         docker.withRegistry('https://index.docker.io/v1/', 'git_credentials') {
                             docker.image("your-docker-image:${DOCKER_TAG}").push("${DOCKER_REPO}:${DOCKER_TAG}")
             }
