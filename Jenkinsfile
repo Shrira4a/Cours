@@ -32,7 +32,7 @@ pipeline {
             steps {
                 // Push Docker image to repository
                 script { 
-                   withCredentials([usernamePassword(credentialsId: DOCKER_HUB_USERNAME_CRED, passwordVariable: 'DOCKER_HUB_PASSWORD', usernameVariable: 'DOCKER_HUB_USERNAME')]) {
+                   withCredentials([usernamePassword(credentialsId: 'git_credentials', passwordVariable: 'DOCKER_HUB_PASSWORD', usernameVariable: 'DOCKER_HUB_USERNAME')]) {
                         // Create a temporary file to store the Docker Hub password
                         def passwordFile = sh(script: 'mktemp', returnStdout: true).trim()
                     
