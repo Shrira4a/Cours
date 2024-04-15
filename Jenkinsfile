@@ -6,7 +6,6 @@ pipeline {
         DOCKERFILE_PATH = "Dockerfile" // Path to Dockerfile in GitHub repository
         DOCKER_REPO = "newdocker" // Docker repository name
         DOCKER_TAG = "final" // Docker image tag
-        DOCKER_HUB_USERNAME_CREDENTIAL = credentials('git_credentials')
     }
 
     stages {
@@ -30,9 +29,8 @@ pipeline {
             steps {
                 // Push Docker image to repository
                 script { 
-                    withCredentials([usernamePassword(credentialsId: 'git_credentials', passwordVariable: 'DOCKER_HUB_PASSWORD', usernameVariable: 'DOCKER_HUB_USERNAME')]) {
-                        docker.withRegistry('https://index.docker.io/v1/', 'git_credentials') {
-                            docker.image("your-docker-image:${DOCKER_TAG}").push("${DOCKER_REPO}:${DOCKER_TAG}")
+                    docker.withRegistry('', 'git_credentials') {
+                        docker.image("${DOCKER_REPO}:${DOCKER_TAG}").push()
             }
         }
     }
