@@ -6,9 +6,7 @@ pipeline {
         DOCKERFILE_PATH = "Dockerfile" // Path to Dockerfile in GitHub repository
         DOCKER_REPO = "newdocker" // Docker repository name
         DOCKER_TAG = "final" // Docker image tag
-        DOCKER_HUB_USERNAME = ''
-        DOCKER_HUB_USERNAME_CRED = credentials('git_credentials')
-        DOCKER_HUB_PASSWORD_CRED = credentials('git_credentials')
+        DOCKER_HUB_USERNAME_CREDENTIAL = credentials('git_credentials')
     }
 
     stages {
@@ -32,22 +30,9 @@ pipeline {
             steps {
                 // Push Docker image to repository
                 script { 
-                   withCredentials([usernamePassword(credentialsId: 'git_credentials', passwordVariable: 'DOCKER_HUB_PASSWORD', usernameVariable: 'DOCKER_HUB_USERNAME')]) {
-                        // Create a temporary file to store the Docker Hub password
-                        def passwordFile = sh(script: 'mktemp', returnStdout: true).trim()
-                    
-                        // Write the Docker Hub password to the temporary file
-                        writeFile file: passwordFile, text: "${DOCKER_HUB_PASSWORD}"
-                    
-                        // Login to Docker Hub using --password-stdin
-                        sh "cat ${passwordFile} | docker login -u ${DOCKER_HUB_USERNAME} --password-stdin"
-                    
-                        // Remove the temporary file
-                        sh "rm -f ${passwordFile}"
-                    
-                        // Tag and push the Docker image
-                        sh "docker tag <local_image_name>:${DOCKER_TAG} ${DOCKER_HUB_USERNAME}/${DOCKER_REPO}:${DOCKER_TAG}"
-                        sh "docker push ${DOCKER_HUB_USERNAME}/${DOCKER_REPOSITORY}:${DOCKER_TAG}"
+                    withCredentials([usernamePassword(credentialsId: DOCKER_HUB_USERNAME_CREDENTIAL, passwordVariable: 'DOCKER_HUB_PASSWORD', usernameVariable: 'DOCKER_HUB_USERNAME')]) {
+                        docker.withRegistry('https://index.docker.io/v1/', 'git_credentials') {
+                            docker.image("your-docker-image:${DOCKER_TAG}").push("${DOCKER_REPO}:${DOCKER_TAG}")
             }
         }
     }
