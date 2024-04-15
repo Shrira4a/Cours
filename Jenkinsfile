@@ -30,7 +30,7 @@ pipeline {
                 // Push Docker image to repository
                 script { 
                      withDockerRegistry([ credentialsId: "git_credentials", url: "" ]){
-                        docker.image("${DOCKER_REPO}:${DOCKER_TAG}").push()
+                        sh 'sudo docker push ${DOCKER_REPO}:${DOCKER_TAG}'
                     }
                 }
             }
