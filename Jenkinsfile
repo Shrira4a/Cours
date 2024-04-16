@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Define environment variables
         DOCKERFILE_PATH = "Dockerfile" // Path to Dockerfile in GitHub repository
-        DOCKER_REPO = "newdocker" // Docker repository name
+        DOCKER_IMAGE_NAME='shrira4a/coursdocker'
         DOCKER_TAG = "final" // Docker image tag
     }
 
@@ -20,7 +20,7 @@ pipeline {
             steps {
                 // Build Docker image
                 script {
-                    dockerImage=docker.build("${DOCKER_REPO}:${DOCKER_TAG}", "-f ${DOCKERFILE_PATH} .")
+                   docker.build("${DOCKER_IMAGE_NAME}:${DOCKER_TAG}", "-f ${DOCKERFILE_PATH} .")
                 }
             }
         }
@@ -29,8 +29,8 @@ pipeline {
             steps {
                 // Push Docker image to repository
                 script { 
-                    docker.withRegistry('', 'git_credentials') {
-                        docker.image(dockerImage).push();
+                    docker.withRegistry('https//:index.docker.io/v1/', 'git_credentials') {
+                     docker.image("${DOCKER_IMAGE_NAME}:${DOCKER_TAG}").push()
             }
         }
     }
