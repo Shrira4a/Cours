@@ -20,7 +20,7 @@ pipeline {
             steps {
                 // Build Docker image
                 script {
-                    docker.build("${DOCKER_REPO}:${DOCKER_TAG}", "-f ${DOCKERFILE_PATH} .")
+                    dockerImage=docker.build("${DOCKER_REPO}:${DOCKER_TAG}", "-f ${DOCKERFILE_PATH} .")
                 }
             }
         }
@@ -29,8 +29,8 @@ pipeline {
             steps {
                 // Push Docker image to repository
                 script { 
-                    docker.withRegistry('https://docker.io/library/newdocker', 'git_credentials') {
-                        docker.image("${DOCKER_REPO}:${DOCKER_TAG}").push()
+                    docker.withRegistry('', 'git_credentials') {
+                        dockerImage.push();
             }
         }
     }
