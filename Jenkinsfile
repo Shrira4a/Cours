@@ -30,7 +30,7 @@ pipeline {
                 // Push Docker image to repository
                 script { 
                     docker.withRegistry('', 'git_credentials') {
-                        dockerImage.push();
+                        docker.image(dockerImage).push();
             }
         }
     }
