@@ -29,9 +29,6 @@ pipeline {
             steps {
                 // Save Dockerfile as an artifact
                 archiveArtifacts artifacts: 'Dockerfile', onlyIfSuccessful: false
-                
-                // Save Docker image as an artifact
-                archiveArtifacts artifacts: '*.tar', onlyIfSuccessful: false
             }
         }
 
