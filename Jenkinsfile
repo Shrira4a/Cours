@@ -7,7 +7,7 @@ pipeline {
         DOCKER_IMAGE_NAME='shrira4a/newdocker'
         DOCKER_TAG = "final" // Docker image tag
     }
-
+//stop
     stages {
         stage('Restart Docker') {
             steps {
@@ -15,12 +15,12 @@ pipeline {
                 sh 'sudo systemctl restart docker'
             }
         }
-        stage('Clone repository') {
-            steps {
-                // Clone GitHub repository
-                git branch: 'main', url: 'https://github.com/Shrira4a/Cours.git'
-            }
-        }
+        // stage('Clone repository') {
+        //     steps {
+        //         // Clone GitHub repository
+        //         git branch: 'main', url: 'https://github.com/Shrira4a/Cours.git'
+        //     }
+        // }
 
         stage('Build Docker image') {
             steps {
@@ -31,12 +31,12 @@ pipeline {
             }
         }
 
-        stage('Save artifacts') {
-            steps {
-                // Save Dockerfile as an artifact
-                archiveArtifacts artifacts: 'Dockerfile', onlyIfSuccessful: false
-            }
-        }
+        // stage('Save artifacts') {
+        //     steps {
+        //         // Save Dockerfile as an artifact
+        //         archiveArtifacts artifacts: 'Dockerfile', onlyIfSuccessful: false
+        //     }
+        // }
 
         stage('Push Docker image') {
             steps {
@@ -48,7 +48,7 @@ pipeline {
         }
     }
 }
-        stage('Run Docker image') {
+        stage('Run Docker container') {
             steps {
                 // Run Docker image
                 script {
