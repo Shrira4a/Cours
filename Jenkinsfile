@@ -9,6 +9,14 @@ pipeline {
     }
     
     stages {
+        stage('Stop Docker Containers')
+        {
+            steps{
+                script{
+                    sh 'docker stop $(docker ps -q)'
+                }
+            }
+        }  
         stage('Build Docker image') {
             steps {
                 // Build Docker image
@@ -32,7 +40,7 @@ pipeline {
             steps {
                 // Run Docker image
                 script {
-                    docker.image("${DOCKER_IMAGE_NAME}:${DOCKER_TAG}").run('-d -p 81:80 --rm')
+                    docker.image("${DOCKER_IMAGE_NAME}:${DOCKER_TAG}").run('-d -p 81:80')
                 }
             }
         }
