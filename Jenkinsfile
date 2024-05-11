@@ -9,14 +9,14 @@ pipeline {
     }
     
     stages {
-        stage('Stop Docker Containers')
-        {
-            steps{
-                script{
-                    sh 'docker stop $(docker ps -q)'
-                }
-            }
-        }  
+        // stage('Stop Docker Containers')
+        // {
+        //     steps{
+        //         script{
+        //             sh 'docker stop $(docker ps -q)'
+        //         }
+        //     }
+        // }  
         stage('Build Docker image') {
             steps {
                 // Build Docker image
