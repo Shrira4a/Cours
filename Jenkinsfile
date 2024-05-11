@@ -40,7 +40,7 @@ pipeline {
             steps {
                 // Run Docker image
                 script {
-                    docker.image("${DOCKER_IMAGE_NAME}:${DOCKER_TAG}").run('-d -p 5000:80')
+                    docker.image("${DOCKER_IMAGE_NAME}:${DOCKER_TAG}").run('-d -p 5000:5000')
                 }
             }
         }
